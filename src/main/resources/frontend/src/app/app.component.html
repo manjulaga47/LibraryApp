@@ -1,0 +1,173 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<style>
+  .main{
+    height:100%;
+    width: 100%;
+  }
+  .banner{
+    height:10%;
+    width: 100%;
+    background-color:blue;
+    align-items: center;
+    text-align: center;
+  }
+  h2{
+    color: white;
+    justify-content: center
+  }
+  .leftCss{
+    height:85%;
+    width: 20%;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
+    float:left;
+    margin-left:2px;
+
+  }
+  .rightCss{
+    height:85%;
+    width: 59%;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
+    float:right;
+
+  }
+  .contaner{
+    height:10%;
+    width: 90%;
+    color:blue;
+    align-items: center;
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    margin-left: 4px;
+    font-weight: 600;
+    text-align: left;
+    margin-top:7px;
+  }
+  .contaner span{
+    height:10%;
+    width: 90%;
+
+  }
+
+  .contaner :hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+    background-image:none;
+  }
+
+  .contanerBook{
+    height:30px;
+    width: 90%;
+    color:darkslateblue;
+  }
+  input{
+    width:400px;
+    float:right;
+    margin-right:50%;
+  }
+  select{
+    width:400px;
+    float:right;
+    margin-right:50%;
+  }
+  textarea{
+    float:right;
+  }
+
+  .fieldCss{
+    width:90%;
+    padding:18px;
+
+  }
+</style>
+
+<!-- Toolbar -->
+<div class="main" role="banner">
+  <div class="banner">
+    <h2>Library Application</h2>
+  </div>
+
+  <div class="leftCss">
+    <div *ngIf="libraries.length>0" style="text-align: center;"><h3>Libraries</h3></div>
+    <div class="contanerBook" *ngFor="let library of libraries ;let i =index " >
+      <div [attr.item-id]="'libraryItemId-'+i"  class="contaner"  (click)="getBooks(library)">
+        <span >{{library.LIBRARY_NAME}}</span>
+      </div>
+    </div>
+   </div>
+   <div class="leftCss">
+    <div style="text-align: center;"><h3> Books From Library </h3><h5 [attr.item-id]="'libraryNameItemId'" *ngIf="books.length > 0">({{selectedLibrary.LIBRARY_NAME}})</h5></div>
+    <div class="contanerBook" *ngFor="let book of books ;let i =index" >
+      <div [attr.item-id]="'booksItemId-'+i"  class="contaner"  (click)="getBookInfo(book)">
+        <span>{{book.TITLE}}</span>
+      </div>
+    </div>
+   </div>
+  
+  <div class="rightCss" >
+    <div *ngIf="bookDetails != null"  [attr.item-id]="'bookNameItemId'" style="text-align: center;"><h3>{{selectedBook.TITLE}}</h3></div>
+    <form [formGroup] = "bookList" *ngIf="bookDetails != null">
+      <div class="fieldCss">
+      <label>
+         Title<label style="color: red;">*</label> :</label>
+        <input type="text" formControlName="title">
+      </div>
+      <div class="fieldCss">
+      <label>
+        Author<label style="color: red;">*</label> :</label>
+        <input type="text" formControlName="author">
+      </div>
+        <div class="fieldCss">
+      <label>
+        Publisher<label style="color: red;">*</label> :</label>
+       <input type="text" formControlName="publisher">
+      </div>
+       <div class="fieldCss">
+   
+     <label>
+       Rating<label style="color: red;">*</label> :</label>
+       <select formControlName="rating">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select> 
+      </div>
+       <div class="fieldCss">
+     <label>
+      Content<label style="color: red;">*</label> :</label>
+      <textarea  type="text" formControlName="content" rows="17" cols="109"></textarea>
+    </div>
+    </form>
+
+    <div *ngIf="bookDetails != undefined" class="fieldCss" style="float:right">
+      <button [disabled]="!bookList.valid" (click)="updateBooks()" [attr.item-id]="'updateBookItemId'">Update Book</button></div>
+  </div>
+ 
+</div>
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+
+<router-outlet></router-outlet>
